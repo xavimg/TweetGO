@@ -28,7 +28,7 @@ func Registro(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, encontrado, _ := bd.ChequeoYaExisteUsuario(t.Email)
-	if encontrado == true {
+	if encontrado {
 		http.Error(w, "Ya existe un usuario con este email", 400)
 		return
 
