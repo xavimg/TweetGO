@@ -9,25 +9,25 @@ import (
 )
 
 /*MongoC es el objeto de conexion a la BD*/
-var MongoC, err = ConectarBD()
+var MongoC = ConectarBD()
 var clientOptions = options.Client().ApplyURI("mongodb+srv://xavi:v6vpxdkd@twitterclone.bmk2f.mongodb.net/twittorclone?retryWrites=true&w=majority")
 
 /* ConectarBD Es la funcion que nos permite crear la BD */
-func ConectarBD() (*mongo.Client, error) {
+func ConectarBD() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err.Error())
-		return nil, err
+		return client
 	}
 
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
 		log.Fatal(err.Error())
-		return nil, err
+		return client
 	}
 	log.Println("Conexion exitosa con la BD")
 
-	return client, nil
+	return client
 }
 
 /*ChequeoConn es el Ping a la BD */
