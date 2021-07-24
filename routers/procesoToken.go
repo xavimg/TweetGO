@@ -2,7 +2,6 @@ package routers
 
 import (
 	"errors"
-	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/xavimg/TweetGO/bd"
@@ -20,14 +19,6 @@ func ProcesoToken(tk string) (*models.Claim, bool, string, error) {
 
 	miClave := []byte("MastersDelDesarrollo_grupoDeFacebook")
 	claims := &models.Claim{}
-
-	splitToken := strings.Split(tk, "Bearer ")
-	if len(splitToken) != 2 {
-		return claims, false, string(""), errors.New("formato de token invalido")
-
-	}
-
-	tk = strings.TrimSpace(splitToken[1])
 
 	tkn, err := jwt.ParseWithClaims(tk, claims, func(toke *jwt.Token) (interface{}, error) {
 		return miClave, nil
